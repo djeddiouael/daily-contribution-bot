@@ -1,9 +1,9 @@
 
-name: Daily Contribution
+name: Hourly Contribution
 
 on:
   schedule:
-    - cron: "30 17 * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -22,9 +22,9 @@ jobs:
           git config user.name "djeddiouael"
           git config user.email "djeddi.ouael.00@gmail.com"
 
-      - name: Update daily file
+      - name: Update hourly file
         run: |
-          date -u +"Last update: %Y-%m-%d" > daily.txt
+          date -u +"Last update: %Y-%m-%d %H:%M:%S UTC" > daily.txt
           git add daily.txt
-          git diff --cached --quiet || git commit -m "Daily contribution"
+          git commit -m "Hourly update $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
